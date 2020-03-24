@@ -1,6 +1,7 @@
 django
 django-extensions
 dj_database_url
+psycopg2-binary
 
 pip-tools
 uwsgi
