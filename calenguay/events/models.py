@@ -1,7 +1,12 @@
+from datetime import timedelta
+
+from dateutil.relativedelta import relativedelta
+from dateutil.rrule import MINUTELY, rrule, rruleset
 from django.contrib.auth import get_user_model
 from django.core import validators
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils.timezone import now
 
 User = get_user_model()
 
@@ -44,6 +49,24 @@ class EventType(models.Model):
     def __str__(self):
         return f"{self.name} ({self.user})"
 
+    def slots(self):
+        ruleset = rruleset()
+
+        if not self.rules.all().exists():
+            ruleset.rrule(
+                rrule(
+                    MINUTELY,
+                    interval=self.duration,
+                    dtstart=now(),
+                    until=now() + relativedelta(days=self.max_booking_time),
+                )
+            )
+        else:
+            for rule in self.rules.all():
+                ruleset.rrule(rule.as_rrule())
+
+        return ruleset
+
 
 class EventRule(models.Model):
     class DayOfWeek(models.IntegerChoices):
@@ -63,7 +86,9 @@ class EventRule(models.Model):
         DOW = "dow", "Day of the week"
         DATE = "date", "Until date"
 
-    status = models.CharField(choices=State.choices,max_length=12, default=State.AVAILABLE)
+    status = models.CharField(
+        choices=State.choices, max_length=12, default=State.AVAILABLE
+    )
 
     eventtype = models.ForeignKey(
         EventType, related_name="rules", on_delete=models.CASCADE
@@ -79,6 +104,9 @@ class EventRule(models.Model):
     # Type.DATE
     rule_to_date = models.DateField(blank=True, null=True)
     rule_from_date = models.DateField(blank=True, null=True)
+
+    def as_rrule(self):
+        return rrule()
 
     def clean(self):
         if self.ruletype == self.Type.DOW:
@@ -107,11 +135,11 @@ class Event(models.Model):
     user = models.ForeignKey(User, related_name="events", on_delete=models.CASCADE)
 
     start_at = models.DateTimeField()
-    ends_at = models.DateTimeField()
+    ends_at = models.DateTimeField(blank=True)
 
     def __str__(self):
         return f"{self.start_at} {self.ends_at} / {self.eventtype}"
 
     def clean(self):
-        # TODO: Apply rules
-        ...
+        if not self.ends_at:
+            self.ends_at = self.start_at + timedelta(minutes=self.eventtype.duration)

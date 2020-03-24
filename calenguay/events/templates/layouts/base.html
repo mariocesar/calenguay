@@ -18,7 +18,13 @@
         </div>
     </div>
 </header>
-
+{% if messages %}
+    {% for message in messages %}
+        <div class="bg-orange-200">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
 <div class="container">
     {% block body %}
 

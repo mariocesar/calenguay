@@ -6,4 +6,17 @@
 
     <p>{{ event_type.description }}</p>
 
+    {% for slot in event_type.slots %}
+
+        <form class="inline-block m-2" action="{% url 'make_appointment' event_type.pk %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="start_at" value="{{ slot|date:'Y-m-d h:m:s' }}">
+            <button type="submit"
+                    class="rounded bg-blue-100 text-blue-700 p-2 hover:bg-yellow-200">
+                {{ slot }}
+            </button>
+        </form>
+
+    {% endfor %}
+
 {% endblock %}
