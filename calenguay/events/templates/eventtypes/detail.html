@@ -1,0 +1,9 @@
+{% extends 'layouts/base.html' %}
+
+{% block body %}
+    <h2>{{ event_type.name }}</h2>
+    <p>Por {{ event_type.user }}</p>
+
+    <p>{{ event_type.description }}</p>
+
+{% endblock %}

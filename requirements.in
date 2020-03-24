@@ -1,5 +1,7 @@
 django
 django-extensions
+django-livereload-server
+
 dj_database_url
 psycopg2-binary
 

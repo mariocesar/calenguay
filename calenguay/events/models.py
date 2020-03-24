@@ -13,6 +13,9 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = "categories"
 
+    def __str__(self):
+        return self.name
+
 
 class UserCategory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

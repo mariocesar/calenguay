@@ -1,0 +1,21 @@
+{% extends 'layouts/base.html' %}
+
+{% block body %}
+    <div class="p-10">
+        <h2 class="text-3xl">Bienvenido a Caleguay</h2>
+
+        <p class="text-xl">Programa tus reuniones facilmente con tus tutores favoritos.</p>
+    </div>
+
+    <h3 class="font-semibold">Buscar tutores en:</h3>
+    <ul>
+        {% for category in categories %}
+            <li>
+                <a href="{% url 'category_detail' category.pk %}"
+                   class="hover:text-blue-600 underline">
+                    {{ category.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

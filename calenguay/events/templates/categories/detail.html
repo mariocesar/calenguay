@@ -1,0 +1,20 @@
+{% extends 'layouts/base.html' %}
+
+{% block body %}
+
+    <h2>{{ category.name }}</h2>
+
+    {% for event_type in event_types %}
+        <div class="flex justify-around mb-4">
+            <div class="w-1/2">
+                <h3 class="font-semibold">{{ event_type.name }} por {{ event_type.user }}</h3>
+                Duracion {{ event_type.duration }}m
+
+            </div>
+            <div class="w-1/2">
+                <a href="{% url 'eventtype_detail' event_type.pk %}"
+                   class="rounded bg-blue-300 text-white p-2 inline-block">Solicitar</a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
