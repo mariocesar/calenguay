@@ -65,6 +65,13 @@ class EventType(models.Model):
             for rule in self.rules.all():
                 ruleset.rrule(rule.as_rrule())
 
+        for event in Event.objects.filter(eventtype=self):
+            ruleset.exrule(rrule(
+                MINUTELY,
+                dtstart=event.start_at,
+                until=event.ends_at,
+            ))
+
         return ruleset
 
 
