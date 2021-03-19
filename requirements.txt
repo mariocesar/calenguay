@@ -4,19 +4,41 @@
 #
 #    pip-compile requirements.in
 #
-asgiref==3.2.5            # via django
-beautifulsoup4==4.8.2     # via django-livereload-server
-click==7.1.1              # via pip-tools
-dj-database-url==0.5.0    # via -r requirements.in
-django-extensions==2.2.8  # via -r requirements.in
-django-livereload-server==0.3.2  # via -r requirements.in
-django==3.0.4             # via -r requirements.in, django-livereload-server
-pip-tools==4.5.1          # via -r requirements.in
-psycopg2-binary==2.8.4    # via -r requirements.in
-python-dateutil==2.8.1    # via -r requirements.in
-pytz==2019.3              # via django
-six==1.14.0               # via django-extensions, django-livereload-server, pip-tools, python-dateutil
-soupsieve==2.0            # via beautifulsoup4
-sqlparse==0.3.1           # via django
-tornado==6.0.4            # via django-livereload-server
-uwsgi==2.0.18             # via -r requirements.in
+asgiref==3.3.1
+    # via django
+beautifulsoup4==4.8.2
+    # via django-livereload-server
+click==7.1.1
+    # via pip-tools
+dj-database-url==0.5.0
+    # via -r requirements.in
+django-extensions==2.2.8
+    # via -r requirements.in
+django-livereload-server==0.3.2
+    # via -r requirements.in
+django==3.1.6
+    # via
+    #   -r requirements.in
+    #   django-livereload-server
+pip-tools==4.5.1
+    # via -r requirements.in
+psycopg2-binary==2.8.4
+    # via -r requirements.in
+python-dateutil==2.8.1
+    # via -r requirements.in
+pytz==2019.3
+    # via django
+six==1.14.0
+    # via
+    #   django-extensions
+    #   django-livereload-server
+    #   pip-tools
+    #   python-dateutil
+soupsieve==2.0
+    # via beautifulsoup4
+sqlparse==0.3.1
+    # via django
+tornado==6.0.4
+    # via django-livereload-server
+uwsgi==2.0.18
+    # via -r requirements.in
